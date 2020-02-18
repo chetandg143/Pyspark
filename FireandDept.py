@@ -24,3 +24,5 @@ f2 =spark.read.format('csv').options(header='true', inferschema ='true').load('/
 #print(f2.select('Incident Number','Neighborhood  District').distinct().filter((f2['Neighborhood  District']).contains('Nob Hill')).show())
 f3 = f1.join(f2, on= ['Incident Number'])
 print(f3.select('Call Type Group' , 'Neighborhood  District').show(10))
+
+f3.close()

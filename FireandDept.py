@@ -21,8 +21,11 @@ print(f1.select('Call Date' , 'Call Type').distinct().filter((f1['Call Type']).e
 f2 =spark.read.format('csv').options(header='true', inferschema ='true').load('/home/tibil/Downloads/Chetan/Fire_Incidents_Data.csv')
 
 
-#print(f2.select('Incident Number','Neighborhood  District').distinct().filter((f2['Neighborhood  District']).contains('Nob Hill')).show())
-f3 = f1.join(f2, on= ['Incident Number'])
-print(f3.select('Call Type Group' , 'Neighborhood  District').show(10))
+print(f2.select('Incident Number','Neighborhood  District').distinct().filter((f2['Neighborhood  District']).contains('Nob Hill')).show())
+f3 = f1.join (f2 , on = ['Incident Number'], how='inner')
+#print(f3.show(25))
+print(f3.select('Call Type Group','Neighborhood  District', 'Incident Number').filter((f3['Neighborhood  District']).contains('Nob Hill')).show())
 
-f3.close()
+
+
+#print(f3.select('Call Type Group','Neighborhood District').filter(f3['Neighborhood District'].contains('Nob Hill')).show())
